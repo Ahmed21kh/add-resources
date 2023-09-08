@@ -45,7 +45,7 @@ export class NavComponent implements  OnInit{
 
     })
 
-    Swal.fire(''
+    Swal.fire(this.language == "en"?'Confirm Changes':'تأكيد التغييرات'
       ,
       `
       <div style="display:flex;flex-direction:column;gap:20px;direction:${this.language == "en"?'ltr':'rtl'};justify-content:center;">

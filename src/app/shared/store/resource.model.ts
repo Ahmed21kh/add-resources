@@ -7,6 +7,9 @@ export interface Profile{
   resourcesName:string,
   resourceType:string
 }
+export interface ProfileSuccess{
+message:string
+}
 export interface Booking{
   avelabelityCount:number,
   periodType:string,

@@ -6,6 +6,9 @@ import { Booking, Profile, Schedules } from "./resource.model";
 // export const reset = createAction("reset")
 export const changeLang = createAction("changeLang", props<{ value: string  }>())
 export const changeProfile = createAction("changeProfile", props<{ value: Profile}>())
+export const changeProfileSucsess = createAction("changeProfileSucsess")
+export const changeBookingSucsess = createAction("changeBookingSucsess")
+export const changeSchedualeSucsess = createAction("changeSchedualeSucsess")
 export const changeBooking = createAction("changeBooking", props<{ value: Booking}>())
 export const changeScheduale = createAction("changeScheduale", props<{ value: Schedules}>())
 

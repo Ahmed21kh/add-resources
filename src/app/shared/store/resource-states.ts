@@ -1,4 +1,4 @@
-import { Booking, Language, Profile, Schedules } from "./resource.model";
+import { Booking, Language, Profile, ProfileSuccess, Schedules } from "./resource.model";
 
 
 export const initialLangState:Language={
@@ -10,6 +10,9 @@ export const initialProfileState:Profile={
   img:"assets/Images/user.png",
   resourcesName:"",
   resourceType:"حجز خلال اليوم"
+}
+export const initialProfileStateSuccess:ProfileSuccess={
+ message:''
 }
 
 export const initialBookingState:Booking={

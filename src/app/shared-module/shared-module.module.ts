@@ -6,9 +6,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppService } from '../services/app.service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
-import { langReducer, profileReducer, bookingReducer, schedualeReducer } from '../shared/store/resource-reducer';
+import { langReducer, profileReducer, bookingReducer, schedualeReducer, profileSuccessReducer } from '../shared/store/resource-reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
+import { changeProfileSucsess } from '../shared/store/resource-actions';
+import { ResourceEffects } from '../shared/store/resource-effects';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -29,8 +31,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     isolate: false
 }),
 StoreDevtoolsModule.instrument({ maxAge: 25 , logOnly: environment.production,autoPause:true }),
-StoreModule.forRoot({language:langReducer,profile:profileReducer,booking:bookingReducer,schedule:schedualeReducer}, {}),
-EffectsModule.forRoot([])
+StoreModule.forRoot({language:langReducer,profile:profileReducer,booking:bookingReducer,schedule:schedualeReducer,profileSuccess:profileSuccessReducer}, {}),
+EffectsModule.forRoot([ResourceEffects])
   ],
   exports: [TranslateModule],
 })

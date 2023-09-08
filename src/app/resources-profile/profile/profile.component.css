@@ -16,6 +16,8 @@
   -ms-border-radius:20px;
   -o-border-radius:20px;
   position:relative;
+  width:fit-content;
+  margin:auto;
   /* height: 124.405px; */
 }
 .resourceType-profile {
@@ -55,7 +57,7 @@
 .upload-btn {
   position: absolute;
   display:flex;
-  top:-2px;
+  top:2px;
 
   justify-content:center;
   align-items:center;

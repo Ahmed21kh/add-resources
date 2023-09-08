@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
-import { initialBookingState, initialLangState, initialProfileState, initialScheduleState } from "./resource-states";
-import { changeBooking, changeLang, changeProfile, changeScheduale } from "./resource-actions";
+import { initialBookingState, initialLangState, initialProfileState, initialProfileStateSuccess, initialScheduleState } from "./resource-states";
+import { changeBooking, changeLang, changeProfile, changeProfileSucsess, changeScheduale } from "./resource-actions";
 
 export const languageReducer = createReducer(initialLangState,
     on(changeLang, (state,action) => {
@@ -21,6 +21,16 @@ export const _profileReducer = createReducer(initialProfileState,
           img: action.value.img,
           resourcesName: action.value.resourcesName,
           resourceType: action.value.resourceType
+      };
+  })
+)
+export const _profileReducerSucsess = createReducer(initialProfileStateSuccess,
+  on(changeProfileSucsess, (state ,action) => {
+    console.log({...state},action);
+
+      return {
+          ...state,
+          message:"Change profile successfully"
       };
   })
 )
@@ -68,3 +78,9 @@ export function schedualeReducer(state: any, action: any) {
   return _schedualeReducer(state, action);
 
 }
+export function profileSuccessReducer(state: any, action: any) {
+  return _profileReducerSucsess(state, action);
+
+}
+
+

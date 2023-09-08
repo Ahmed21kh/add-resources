@@ -12,8 +12,8 @@
                 #fileInput
                 style="display: none"
               />
-              <button class="upload-btn" [ngStyle]="{'left':language=='en'?'-10px':'auto'}" nz-button (click)="fileInput.click()">
-                <img src="assets/Images/gallery.svg" />
+              <button class="upload-btn" [ngStyle]="{'left':language=='en'?'auto':'-8px','right':language=='en'?'-8px':'auto'}" nz-button (click)="fileInput.click()">
+                <img  src="assets/Images/gallery.svg" />
               </button>
               <img
                 *ngIf="imageUrl"

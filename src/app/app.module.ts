@@ -29,9 +29,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { StoreModule } from '@ngrx/store';
-import { bookingReducer, langReducer, profileReducer, schedualeReducer } from './shared/store/resource-reducer';
+import { bookingReducer, langReducer, profileReducer, profileSuccessReducer, schedualeReducer } from './shared/store/resource-reducer';
 import { SharedModule } from './shared-module/shared-module.module';
 import { EffectsModule } from '@ngrx/effects';
+import { ResourceEffects } from './shared/store/resource-effects';
 registerLocaleData(en);
 
 // required for AOT compilation
@@ -68,9 +69,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NzGridModule,
     NzDropDownModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    StoreModule.forRoot({language:langReducer,profile:profileReducer,booking:bookingReducer,schedule:schedualeReducer}, {}),
+    StoreModule.forRoot({language:langReducer,profile:profileReducer,booking:bookingReducer,schedule:schedualeReducer,profileSuccess:profileSuccessReducer}, {}),
     SharedModule.forRoot(),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([ResourceEffects])
 
   ],
   providers: [HttpClient, { provide: NZ_I18N, useValue: en_US }],

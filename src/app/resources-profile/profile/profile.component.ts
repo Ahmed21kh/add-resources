@@ -10,7 +10,7 @@ import { Language } from 'src/app/shared/store/resource.model';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  imageUrl: string | ArrayBuffer | null = "assets/Images/user.png";
+  imageUrl: string | ArrayBuffer | null = "assets/Images/user2.png";
   resoureType = 'حجز خلال اليوم';
   resourceName:string = ""
   language:string = "en";
@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
     )
    let val=  this.translate.get('book-dure-day')
    console.log(val);
-   
+
  }
  changeResourceType(e:any){
  console.log(e);
@@ -60,5 +60,6 @@ export class ProfileComponent implements OnInit {
 
       reader.readAsDataURL(file);
     }
+     this.dispatchProfileData ()
   }
 }
