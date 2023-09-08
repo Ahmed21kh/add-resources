@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face { font-family: Times New Roman;  font-weight: bold; src: url('/fonts/times\ new\ roman\ bold.ttf'); }
+ @font-face { font-family: Times New Roman;  src: url('/fonts/times\ new\ roman.ttf');}
+ @font-face { font-family: Times New Roman;  src: url('/fonts/times\ new\ roman\ italic.ttf');}
+
+ *{
+  font-family:Times New Roman;
+ }

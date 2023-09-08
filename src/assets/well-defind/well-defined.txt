@@ -1,0 +1,43 @@
+Add Resources project
+
+1-app folder :
+
+The main folder in application which contain all components and modules , services etc.
+2-nav component:	
+
+ Contain The header of application which contain the language and other actions
+3- modules :
+
+    -- resource-profile module :
+      Contain the profile component (html , css , ts ) files contain the
+      profile logic .
+    --resource-booking module :
+       Contain the booking component (html , css , ts ) files contain the
+      booking logic .
+   --resource-schedule module :
+        Contain the schedule component (html , css , ts ) files contain the
+      schedule logic.
+--shared module :
+
+    Contain the critical components and services , modules .
+--app module :
+The main module in application contain the components and services
+-app component :
+
+The main component in project which contain all components  (parent component)
+
+4- shared folder (store):
+
+Contain store folder which contain [store-states ,store-reducers,store-actions,store-selectors ,store-interfaces].
+
+5-services folder :
+
+Contain all services in application 
+
+6-environments folder :
+
+Which contain the environment variables and base urls and production url.
+
+7-assets folder :
+
+Which contain all resources in application like images , fonts , languages (i18n) 

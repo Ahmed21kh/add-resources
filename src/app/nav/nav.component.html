@@ -1,0 +1,51 @@
+<div class="nav-wrapper" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+  <div class="title" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+    <button nz-button nzType="default" class="back-btn">
+      <span
+        nz-icon
+        [nzType]="language == 'en' ? 'arrow-left' : 'arrow-right'"
+        nzTheme="outline"
+      ></span>
+    </button>
+    <span>{{ "add-new-resources" | translate }}</span>
+  </div>
+
+  <div class="actions" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+    <div class="swich-activ" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+      <img
+        width="30"
+        style="border-radius: 50px; cursor: pointer"
+        [src]="
+          language == 'en'
+            ? 'assets/Images/english-flag.png'
+            : 'assets/Images/saudi-flag.png'
+        "
+        nz-dropdown
+        nzTrigger="click"
+        [nzDropdownMenu]="menu"
+        alt=""
+      />
+      <span> {{ language|translate }} </span>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="changeLang('en')">{{"en"|translate}}</li>
+          <li nz-menu-item (click)="changeLang('ar')">{{"ar"|translate}}</li>
+        </ul>
+      </nz-dropdown-menu>
+      <nz-switch [(ngModel)]="active"></nz-switch>
+      <span *ngIf="active; else noActive">{{ "active" | translate }}</span>
+      <ng-template #noActive>
+        <span>{{ "notactive" | translate }}</span>
+      </ng-template>
+    </div>
+    <div style="display: flex;align-items: center;gap: 20px;flex-wrap: wrap;">
+      <button nz-button nzType="primary" class="save-btn" (click)="saveChanges()">
+        {{ "save-changes" | translate }}
+      </button>
+      <button nz-button nzType="default" class="delete-btn">
+        {{ "delete-resource" | translate }} <span nz-icon nzType="delete"></span>
+      </button>
+
+    </div>
+  </div>
+</div>

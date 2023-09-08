@@ -1,0 +1,119 @@
+.schedules-wrapper {
+  border-radius: 12px;
+  background: #f7f7f7;
+  padding: 50px 80px;
+}
+.swich-activ {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.swich-activ span {
+  font-weight: 700;
+  font-size: 16px;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.title span {
+  color: #1c1c28;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+}
+.title p {
+  color: #92a1ad;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+::ng-deep .ant-segmented {
+  box-sizing: border-box;
+  margin: 0;
+  width: auto;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  display: inline-block;
+  padding: 2px;
+  color: rgba(0, 0, 0, 0.65);
+  border-radius: 10px;
+  border: 1.5px solid #f5f5f5;
+  background: #f7f7f7;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+::ng-deep .ant-segmented-item-selected {
+  border-radius: 8px;
+  background: var(--primary-default, #0771de);
+  box-shadow: 0px 8px 40px 0px rgba(112, 144, 176, 0.08);
+  color: #fff;
+}
+::ng-deep .ant-segmented-item:hover,
+.ant-segmented-item:focus {
+  color: initial;
+}
+::ng-deep .ant-segmented-item-selected :hover {
+  color: #fff;
+}
+.schedules-content {
+  margin-top: 80px;
+}
+::ng-deep .ant-picker {
+  width: 100%;
+  height: 53px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  padding: 4px 11px 4px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9px;
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+::ng-deep .ant-picker-suffix {
+  display: flex;
+  flex: none;
+  align-self: center;
+  margin-left: 4px;
+  color: #a1a5b7;
+  line-height: 1;
+  pointer-events: none;
+}
+::ng-deep .time {
+  width: 250px !important;
+  border-radius: 8px;
+  border: 1px solid #cfcbcb;
+  background: #fff;
+}
+.lable {
+  font-size: 16px;
+  font-weight: 400;
+  color: #92a1ad;
+  position: absolute;
+  top: -20px;
+}
+@media screen and (max-width: 500px) {
+  .schedules-wrapper {
+    padding: 50px 20px !important;
+  }
+  ::ng-deep .ant-segmented {
+    margin: 10px auto;
+  }
+}

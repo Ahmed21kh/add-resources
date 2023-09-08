@@ -1,0 +1,61 @@
+.nav-wrapper{
+  width: 100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  position:relative;
+}
+.actions {
+  /* width: 100%; */
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:20px
+}
+.swich-activ {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px
+}
+.swich-activ span {
+  font-weight: 700;
+  font-size:16px;
+}
+.title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.back-btn {
+  background:#E7EAED;
+  color:#000;
+  border-radius: 10px;
+  height: 50px;
+}
+.delete-btn {
+  border-radius: 9px;
+  border: 1px solid #FF4B55;
+  background: #FFF6F6;
+  color:#FF4B55;
+  height: 50px;
+  font-weight: 700;
+  font-size:16px;
+  padding:0 30px ;
+}
+.save-btn {
+  height: 50px;
+  border-radius: 9px;
+  background: #1C1C28;
+  color:#fff;
+  font-weight: 700;
+  font-size:16px;
+  padding:0 30px ;
+}

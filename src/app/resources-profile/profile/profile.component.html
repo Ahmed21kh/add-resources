@@ -1,0 +1,70 @@
+<div class="profile-wrapper">
+  <div nz-row [nzGutter]="[24, 30]" nzAlign="middle" nzJustify="center">
+    <div nz-col nzXs="24">
+      <div class="image-profile">
+        <div nz-row [nzGutter]="[24, 24]" nzAlign="middle" nzJustify="center">
+          <div nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="7" nzXXl="5">
+            <div class="image-upload">
+              <input
+                nz-input
+                type="file"
+                (change)="onFileSelected($event)"
+                #fileInput
+                style="display: none"
+              />
+              <button class="upload-btn" [ngStyle]="{'left':language=='en'?'-10px':'auto'}" nz-button (click)="fileInput.click()">
+                <img src="assets/Images/gallery.svg" />
+              </button>
+              <img
+                *ngIf="imageUrl"
+                [src]="imageUrl"
+                class="image-selected"
+                alt="Selected Image"
+              />
+            </div>
+          </div>
+          <div
+            nz-col
+            nzXs="24"
+            nzSm="24"
+            nzMd="18"
+            nzLg="18"
+            nzXl="17"
+            nzXXl="19"
+            [dir]="language == 'en' ? 'ltr' : 'rtl'"
+          >
+            <div class="name-input">
+              <span class="lable">{{ "resource-name" | translate }}</span>
+              <input
+                [(ngModel)]="resourceName"
+                (ngModelChange)="changeResourceName($event)"
+                nz-input
+                [placeholder]="'resource-name' | translate"
+                nzSize="large"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzXs="24">
+      <div
+        [dir]="language == 'en' ? 'ltr' : 'rtl'"
+        class="resourceType-profile"
+      >
+        <span class="lable">{{ "choose-resources-type" | translate }}</span>
+        <nz-radio-group
+          [(ngModel)]="resoureType"
+          (ngModelChange)="changeResourceType($event)"
+        >
+          <label class="radio-lable" nz-radio nzValue="حجز خلال اليوم">
+            {{ "book-dure-day" | translate }}</label
+          >
+          <label class="radio-lable" nz-radio nzValue="حجز مدة (اكثر من يوم)">{{
+            "book-alotof-day" | translate
+          }}</label>
+        </nz-radio-group>
+      </div>
+    </div>
+  </div>
+</div>
