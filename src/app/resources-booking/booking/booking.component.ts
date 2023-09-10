@@ -73,7 +73,7 @@ export class BookingComponent implements OnInit {
 
     }
    }
-  
+
    dispatchBookingData(){
     this.appService.changeBookingData({
       avelabelityCount:this.avelabelityCount,

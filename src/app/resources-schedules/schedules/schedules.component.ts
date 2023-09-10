@@ -23,56 +23,56 @@ export class SchedulesComponent implements OnInit {
     isExist:false,
     isCopy:false ,
     day:"Sat",
-    startTime:'',
-    endTime:'',
+    startTime:null,
+    endTime:null,
     timeRange:[]
   },
   {
     isExist:true,
     isCopy:false ,
     day:"Sun",
-    startTime:'',
-    endTime:'',
+    startTime:null,
+    endTime:null,
     timeRange:[]
   },
   {
     isExist:true,
     isCopy:false ,
     day:"Mon",
-    startTime:'',
-    endTime:'',
+    startTime:null,
+    endTime:null,
     timeRange:[]
   },
   {
     isExist:true,
     isCopy:false ,
     day:"Tue",
-    startTime:'',
-    endTime:'',
+    startTime:null,
+    endTime:null,
     timeRange:[]
   },
   {
     isExist:true,
     day:"Wed",
     isCopy:false ,
-    startTime:'',
-    endTime:'',
+    startTime:null,
+    endTime:null,
     timeRange:[]
   },
   {
     isExist:true,
     isCopy:false ,
     day:"Thu",
-    startTime:'',
-    endTime:'',
+    startTime:null,
+    endTime:null,
     timeRange:[]
   },
   {
     isExist:false,
     isCopy:false ,
     day:"Fri",
-    startTime:'',
-    endTime:'',
+    startTime:null,
+    endTime:null,
     timeRange:[]
   },
 ]

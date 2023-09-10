@@ -58,7 +58,7 @@
           nzJustify="center"
           [dir]="language == 'en' ? 'ltr' : 'rtl'"
         >
-          <nz-col nzXs="24" nzMd="24" nzLg="3">
+          <nz-col nzXs="24" nzMd="24" nzLg="4">
             <nz-space
               nzAlign="center"
               nzDirection="horizontal"
@@ -72,7 +72,7 @@
               <span>{{ "days." + item.day | translate }}</span>
             </nz-space>
           </nz-col>
-          <nz-col nzXs="24" nzMd="24" nzLg="19" nzLg="19">
+          <nz-col nzXs="24" nzMd="24" nzLg="18" >
             <nz-row
               *ngIf="days[i].isExist"
               [nzGutter]="[24, 28]"

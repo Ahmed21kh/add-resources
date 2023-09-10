@@ -12,7 +12,7 @@
                 #fileInput
                 style="display: none"
               />
-              <button class="upload-btn" [ngStyle]="{'left':language=='en'?'auto':'-8px','right':language=='en'?'-8px':'auto'}" nz-button (click)="fileInput.click()">
+              <button class="upload-btn" [ngStyle]="{'left':language=='en'?'auto':'0px','right':language=='en'?'0px':'auto'}" nz-button (click)="fileInput.click()">
                 <img  src="assets/Images/gallery.svg" />
               </button>
               <img
@@ -41,6 +41,8 @@
                 nz-input
                 [placeholder]="'resource-name' | translate"
                 nzSize="large"
+                style="font-size:16px;
+                font-weight:500;"
               />
             </div>
           </div>

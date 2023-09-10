@@ -18,17 +18,18 @@
         <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" [dir]="language == 'en' ? 'ltr' : 'rtl'">
           <p   class="lable">{{"resource-time"|translate}}</p>
           <nz-row [nzGutter]="[24,24]" nzAlign="middle" nzJustify="center" [dir]="language == 'en' ? 'ltr' : 'rtl'">
-            <nz-col nzXs="24" nzMd="14"   [dir]="language == 'en' ? 'ltr' : 'rtl'">
+            <nz-col nzXs="24" [nzMd]="resourceTime == 'الوقت ثابت'?14:24"   [dir]="language == 'en' ? 'ltr' : 'rtl'">
               <nz-radio-group [(ngModel)]="resourceTime" [dir]="language == 'en' ? 'ltr' : 'rtl'" (ngModelChange)="changeResourceTime($event)">
                 <label class="radio-lable" nz-radio nzValue="وقت الخدمة"><img src="assets/Images/box-time.svg" alt="" style="margin:8px;">{{"service-time"|translate}} </label>
                 <label class="radio-lable" nz-radio nzValue="الوقت ثابت"> <img src="assets/Images/clock.svg" alt="" style="margin:8px;"> {{"fixed-time"|translate}} </label>
               </nz-radio-group>
 
             </nz-col>
-          <nz-col nzXs="24" nzMd="10" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+          <nz-col nzXs="24" *ngIf="resourceTime == 'الوقت ثابت'" nzMd="10" [dir]="language == 'en' ? 'ltr' : 'rtl'">
             <div class="group" *ngIf="resourceTime == 'الوقت ثابت'" [dir]="language == 'en' ? 'ltr' : 'rtl'">
               <button style="border-radius: 10px;" nz-button nzType="primary"(click)="decreaseTime()">-</button>
-              <span>{{timeQuantity}} {{"minute"|translate}}</span>
+              <span style="font-size:14px;
+              font-weight:500;">{{timeQuantity}} {{"minute"|translate}}</span>
               <button style="border-radius: 10px;" nz-button nzType="primary" (click)="increaseTime()">+</button>
             </div>
           </nz-col>
@@ -39,14 +40,15 @@
           <p  class="lable">{{"multi-booking"|translate}}<img src="assets/Images/clock.svg" alt="" style="margin:8px;" [dir]="language == 'en' ? 'ltr' : 'rtl'"> </p>
           <nz-row [nzGutter]="[24,24]" nzAlign="middle" nzJustify="center" [dir]="language == 'en' ? 'ltr' : 'rtl'">
 
-              <nz-col nzXs="24" nzMd="14"   >
+              <nz-col nzXs="24" [nzMd]="manyBooking == 'حجز اكثر من شخص لنفس الموعد'?14:24"   >
                 <nz-radio-group [(ngModel)]="manyBooking" [dir]="language == 'en' ? 'ltr' : 'rtl'" (ngModelChange)="changeManyBooking($event)">
                   <label class="radio-lable" nz-radio nzValue="حجز واحد فقط"><img src="assets/Images/Vector.svg" alt="" style="margin:8px;">{{"only-one-reservation"|translate}} </label>
                   <label class="radio-lable" nz-radio nzValue="حجز اكثر من شخص لنفس الموعد"> <img src="assets/Images/users.svg" alt="" style="margin:8px;">{{"alot-of-person"|translate}}</label>
                 </nz-radio-group>
 
               </nz-col>
-              <nz-col nzXs="24" nzMd="10" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+              <nz-col nzXs="24" *ngIf="manyBooking == 'حجز اكثر من شخص لنفس الموعد'" nzMd="10" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+                <span class="appointment" [ngStyle]="{'left':language == 'en' ?'55px':'auto','right':language == 'ar' ?'55px':'auto'}">{{"appointment"|translate}}</span>
                 <input class="stores-quantity" *ngIf="manyBooking == 'حجز اكثر من شخص لنفس الموعد'"  type="number" [min]="1" nz-input    nzSize="large" [(ngModel)]="bookingCount" (ngModelChange)="changeBookingCount($event)" />
               </nz-col>
           </nz-row>

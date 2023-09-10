@@ -56,10 +56,10 @@ export class ProfileComponent implements OnInit {
 
       reader.onload = (e) => {
         this.imageUrl = e.target?.result || null;
+        this.dispatchProfileData ()
       };
 
       reader.readAsDataURL(file);
     }
-     this.dispatchProfileData ()
   }
 }
