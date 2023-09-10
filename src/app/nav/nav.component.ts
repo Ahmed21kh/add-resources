@@ -45,9 +45,9 @@ export class NavComponent implements  OnInit{
 
     })
 
-    Swal.fire(this.language == "en"?'Confirm Changes':'تأكيد التغييرات'
-      ,
-      `
+    Swal.fire(
+      { title:this.language == "en"?'Confirm Changes':'تأكيد التغييرات',
+      html:`
       <div style="display:flex;flex-direction:column;gap:20px;direction:${this.language == "en"?'ltr':'rtl'};justify-content:center;">
       <img style="width:100px;border-radius:50px;margin:0 auto;" src="${this.profileData.img}" alt="" />
       <h2 style="font-size:18px;">${this.appService.translateWords("resource-name")} : ${this.profileData.resourcesName}</h2>
@@ -80,9 +80,25 @@ export class NavComponent implements  OnInit{
          `
         ):``}
       </div>
-      `
+      `,
+      confirmButtonText:this.appService.translateWords("save")
 
-    )
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            title:this.language == "en"? 'Saved!':'تم الحفظ',
+            icon:'success',
+            showConfirmButton:false,
+            timer:1500
+          }).then(() => {
+          window.location.reload();
+          })
+          
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
   //   alert(
   //   this.profileData?.resourcesName +
   // this.profileData?.resourceType);
