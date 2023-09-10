@@ -33,6 +33,9 @@ import { bookingReducer, langReducer, profileReducer, profileSuccessReducer, sch
 import { SharedModule } from './shared-module/shared-module.module';
 import { EffectsModule } from '@ngrx/effects';
 import { ResourceEffects } from './shared/store/resource-effects';
+import { NgIconsModule } from '@ng-icons/core';
+import { featherAirplay } from '@ng-icons/feather-icons';
+import { heroUsers } from '@ng-icons/heroicons/outline';
 registerLocaleData(en);
 
 // required for AOT compilation
@@ -71,7 +74,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreModule.forRoot({language:langReducer,profile:profileReducer,booking:bookingReducer,schedule:schedualeReducer,profileSuccess:profileSuccessReducer}, {}),
     SharedModule.forRoot(),
-    EffectsModule.forRoot([ResourceEffects])
+    EffectsModule.forRoot([ResourceEffects]),
+    NgIconsModule.withIcons({ featherAirplay, heroUsers })
 
   ],
   providers: [HttpClient, { provide: NZ_I18N, useValue: en_US }],

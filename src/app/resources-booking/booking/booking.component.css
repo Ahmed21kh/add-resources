@@ -69,6 +69,9 @@
   border: 1px solid #B2A6A6;
   background: #F4EEEE;
   height: 54.924px;
+  overflow: hidden;
+  text-overflow: ellipsis ;
+  position:relative;
   -webkit-border-radius: 9px ;
   -moz-border-radius: 9px ;
   -ms-border-radius: 9px ;

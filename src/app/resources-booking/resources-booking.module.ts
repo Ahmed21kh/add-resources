@@ -10,6 +10,11 @@ import { FormsModule } from '@angular/forms';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { SharedModule } from '../shared-module/shared-module.module';
+import { NgIconsModule } from '@ng-icons/core';
+import { heroMinus, heroMinusSmall, heroPlus, heroPlusSmall, } from '@ng-icons/heroicons/outline';
+import { heroPlusSolid ,heroMinusSolid } from '@ng-icons/heroicons/solid';
+
+
 @NgModule({
   declarations: [
     BookingComponent
@@ -24,7 +29,8 @@ import { SharedModule } from '../shared-module/shared-module.module';
     FormsModule,
     NzInputNumberModule,
     NzSelectModule,
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    NgIconsModule.withIcons({ heroPlus, heroMinus ,heroPlusSolid,heroMinusSolid })
   ],
   exports:[
     BookingComponent

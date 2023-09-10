@@ -11,6 +11,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
 import { changeProfileSucsess } from '../shared/store/resource-actions';
 import { ResourceEffects } from '../shared/store/resource-effects';
+import { NgIconsModule } from '@ng-icons/core';
+import { featherAirplay } from '@ng-icons/feather-icons';
+import { heroUsers } from '@ng-icons/heroicons/outline';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -32,7 +35,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }),
 StoreDevtoolsModule.instrument({ maxAge: 25 , logOnly: environment.production,autoPause:true }),
 StoreModule.forRoot({language:langReducer,profile:profileReducer,booking:bookingReducer,schedule:schedualeReducer,profileSuccess:profileSuccessReducer}, {}),
-EffectsModule.forRoot([ResourceEffects])
+EffectsModule.forRoot([ResourceEffects]),
+NgIconsModule.withIcons({ featherAirplay, heroUsers })
   ],
   exports: [TranslateModule],
 })
