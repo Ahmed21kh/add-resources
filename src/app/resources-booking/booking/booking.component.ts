@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppService } from 'src/app/services/app.service';
 import { getLang } from 'src/app/shared/store/resource-selectors';
@@ -27,49 +27,72 @@ export class BookingComponent implements OnInit {
     this.store.select(getLang).subscribe(lang =>{
      this.language = lang;
     })
-   }
+  }
+  @Input() bookingForm!:FormGroup;
+  get b(){
+    return  this.bookingForm.controls
+  }
    changeAvelabelityCount (e:number) {
     console.log(e);
     this.avelabelityCount = e;
-    this.dispatchBookingData()
+    // this.dispatchBookingData()
    }
    changePeriodType(e:string){
      console.log(e);
      this.periodType = e;
-    this.dispatchBookingData()
+    // this.dispatchBookingData()
 
    }
    changeResourceTime (e:string) {
     console.log(e);
     this.resourceTime = e;
-    this.dispatchBookingData()
+    // this.dispatchBookingData()
 
 
    }
    changeManyBooking (e:string) {
     console.log(e);
     this.manyBooking = e;
-    this.dispatchBookingData()
+    // this.dispatchBookingData()
 
 
    }
    changeBookingCount (e:number) {
     console.log(e);
     this.bookingCount = e;
-    this.dispatchBookingData()
+    // this.dispatchBookingData()
 
 
    }
    increaseTime (){
     this.timeQuantity+=1
-    this.dispatchBookingData()
+    console.log(this.bookingForm.value);
+
+    this.bookingForm.setValue({
+      timeQuantity: this.timeQuantity ,
+      avelabelityCount: this.bookingForm.value.avelabelityCount,
+      bookingCount : this.bookingForm.value.bookingCount,
+      manyBooking: this.bookingForm.value.manyBooking,
+      resourceTime : this.bookingForm.value.resourceTime,
+      periodType : this.bookingForm.value.periodType
+
+    })
+    // this.dispatchBookingData()
 
    }
    decreaseTime(){
     if(this.timeQuantity>0){
-
       this.timeQuantity-=1
-    this.dispatchBookingData()
+   this.bookingForm.setValue({
+      timeQuantity: this.timeQuantity,
+      avelabelityCount: this.bookingForm.value.avelabelityCount,
+      bookingCount : this.bookingForm.value.bookingCount,
+      manyBooking: this.bookingForm.value.manyBooking,
+      resourceTime : this.bookingForm.value.resourceTime,
+      periodType : this.bookingForm.value.periodType
+
+    })
+    // this.dispatchBookingData()
 
     }
    }

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AppService } from '../services/app.service';
 import { Store } from '@ngrx/store';
 import { getBookingData, getLang, getProfileData, getSchadualeData } from '../shared/store/resource-selectors';
-import { Booking, Language, Profile, Schedules } from '../shared/store/resource.model';
+import { Booking, Language, Profile, Schedules, SchedulesData } from '../shared/store/resource.model';
 import {TranslateService} from "@ngx-translate/core";
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -21,14 +22,48 @@ export class NavComponent implements  OnInit{
 
   }
 
-
+  @Input() resourcesData!:FormGroup
 
   ngOnInit(): void {
 
   }
 
-  saveChanges(){
+  formData = new FormGroup({
+    profile:new FormControl('',Validators.required),
+    booking:new FormControl('',Validators.required),
+    schedualeData: new FormControl('',Validators.required)
+  })
 
+  saveChanges(){
+  console.log(this.resourcesData?.value);
+  this.formData.patchValue({
+    profile:this.resourcesData?.value.profile,
+    booking:this.resourcesData?.value.booking,
+    schedualeData:this.resourcesData?.value?.schedualeData?.filter((data:SchedulesData)=>data.isExist== true && data.timeRange.length > 0)
+  })
+  console.log(this.formData?.value);
+
+    this.appService.changeBookingData({
+      avelabelityCount:this.resourcesData?.value.booking.avelabelityCount,
+      periodType:this.resourcesData?.value.booking.periodType,
+      resourceTime:this.resourcesData?.value.booking.resourceTime,
+      manyBooking:this.resourcesData?.value.booking.manyBooking,
+      timeQuantity:this.resourcesData?.value.booking.timeQuantity,
+      bookingCount:this.resourcesData?.value.booking.bookingCount
+    })
+
+    this.appService.changeProfileData({
+      img:this.resourcesData?.value.profile.imageUrl,
+      resourcesName:this.resourcesData?.value.profile.resourceName,
+      resourceType:this.resourcesData?.value.profile.resourceType
+    })
+
+
+      this.appService.changeSchedualeData({
+        schedualeData:this.resourcesData?.value.schedualeData?.filter((data:SchedulesData)=>data.isExist== true && data.timeRange.length > 0)
+      })
+
+  if(this.formData?.valid){
     this.appService.getPofileData().subscribe(data => {
       console.log(data);
       this.profileData = data;
@@ -94,11 +129,17 @@ export class NavComponent implements  OnInit{
           }).then(() => {
           window.location.reload();
           })
-          
+
         } else if (result.isDenied) {
           Swal.fire('Changes are not saved', '', 'info')
         }
       })
+
+  }else {
+    console.log("please complete your changes");
+
+  }
+
   //   alert(
   //   this.profileData?.resourcesName +
   // this.profileData?.resourceType);

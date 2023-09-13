@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { AppService } from 'src/app/services/app.service';
@@ -27,16 +28,24 @@ export class ProfileComponent implements OnInit {
    console.log(val);
 
  }
+
+ @Input() profileForm!:FormGroup ;
+
+
+get p(){
+  return  this.profileForm.controls
+}
  changeResourceType(e:any){
+  console.log(this.profileForm.value);
  console.log(e);
  this.resoureType = e;
- this.dispatchProfileData()
+//  this.dispatchProfileData()
 
  }
  changeResourceName (e:any){
   console.log(e);
   this.resourceName = e;
-  this.dispatchProfileData()
+  // this.dispatchProfileData()
  }
 
  dispatchProfileData () {
@@ -56,7 +65,13 @@ export class ProfileComponent implements OnInit {
 
       reader.onload = (e) => {
         this.imageUrl = e.target?.result || null;
-        this.dispatchProfileData ()
+        // this.dispatchProfileData ()
+        this.profileForm.patchValue({
+          imageUrl: this.imageUrl,
+          resourceName: this.profileForm.value.resourceName,
+          resourceType:this.profileForm.value.resourceType
+        })
+        console.log(this.profileForm.value);
       };
 
       reader.readAsDataURL(file);

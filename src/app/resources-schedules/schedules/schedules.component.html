@@ -1,4 +1,4 @@
-<div class="schedules-wrapper" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+<div [formGroup]="scheduleForm" class="schedules-wrapper" [dir]="language == 'en' ? 'ltr' : 'rtl'">
   <div class="title" [dir]="language == 'en' ? 'ltr' : 'rtl'">
     <nz-row [nzGutter]="[24, 30]" nzAlign="middle" nzJustify="center">
       <nz-col
@@ -35,15 +35,16 @@
       </nz-col>
     </nz-row>
   </div>
-  <div class="schedules-content" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+  <div class="schedules-content"  formArrayName="schedualeData" [dir]="language == 'en' ? 'ltr' : 'rtl'">
     <nz-row
-      *ngFor="let item of days; let i = index"
+      *ngFor="let item of getData.controls; let i = index"
       [nzGutter]="[24, 140]"
       nzAlign="middle"
       nzJustify="start"
       [dir]="language == 'en' ? 'ltr' : 'rtl'"
     >
       <nz-col
+      [formGroupName]="i"
         nzXs="24"
         nzSm="24"
         nzMd="24"
@@ -51,14 +52,16 @@
         nzXl="18"
         [id]="item"
         [dir]="language == 'en' ? 'ltr' : 'rtl'"
+
       >
         <nz-row
+
           [nzGutter]="[24, 40]"
           nzAlign="top"
           nzJustify="center"
           [dir]="language == 'en' ? 'ltr' : 'rtl'"
         >
-          <nz-col nzXs="24" nzMd="24" nzLg="4">
+          <nz-col nzXs="24" nzMd="24" nzLg="4" >
             <nz-space
               nzAlign="center"
               nzDirection="horizontal"
@@ -66,15 +69,15 @@
               style="display: flex; gap: 20px"
             >
               <nz-switch
-                [(ngModel)]="days[i].isExist"
-                (ngModelChange)="handleChangeSwitch($event)"
+                ngDefaultControl
+                formControlName="isExist"
               ></nz-switch>
-              <span>{{ "days." + item.day | translate }}</span>
+              <span>{{ "days."+ item.get('day')?.value| translate}}</span>
             </nz-space>
           </nz-col>
           <nz-col nzXs="24" nzMd="24" nzLg="18" >
             <nz-row
-              *ngIf="days[i].isExist"
+              *ngIf="item.get('isExist')?.value"
               [nzGutter]="[24, 28]"
               nzAlign="middle"
               nzJustify="center"
@@ -84,8 +87,10 @@
                 <div style="display: flex; flex-direction: column; gap: 10px">
                   <span class="lable">{{ "start-time" | translate }}</span>
                   <nz-time-picker
+                  ngDefaultControl
+                  [nzStatus]="(item.get('startTime')?.errors&&item.get('startTime')?.touched) ?'error':''"
                     [nzPlaceHolder]="'start-time' | translate"
-                    [(ngModel)]="item.startTime"
+                    formControlName="startTime"
                     (ngModelChange)="handleChangeStartTime($event, i)"
                     nzPopupClassName="time"
                     [nzNowText]="'time-now' | translate"
@@ -102,8 +107,10 @@
                 <div style="display: flex; flex-direction: column; gap: 10px">
                   <span class="lable">{{ "end-time" | translate }}</span>
                   <nz-time-picker
+                    ngDefaultControl
                     [nzPlaceHolder]="'end-time' | translate"
-                    [(ngModel)]="item.endTime"
+                    [nzStatus]="(item.get('endTime')?.errors&&item.get('endTime')?.touched) ?'error':''"
+                    formControlName="endTime"
                     (ngModelChange)="handleChangeEndTime($event, i)"
                     [nzPopupClassName]="'time'"
                     [nzNowText]="'time-now' | translate"
@@ -128,87 +135,95 @@
                     src="assets/Images/add.svg"
                     alt=""
                     style="cursor: pointer"
-                    (click)="addNewTimeRange($event, i)"
+                    (click)="addNewTimeRange($event, item)"
                   />
 
-                  <!-- <ng-template #delete>
-                        <img src="assets/Images/minus.svg" alt="" style="cursor: pointer;" (click)="removeTimeRange($event,ind,i)">
-                      </ng-template> -->
+
                 </div>
               </nz-col>
             </nz-row>
 
-            <div
-              *ngFor="let item of days[i].timeRange; let ind = index"
-              style="gap: 30px; margin-top: 35px"
-            >
-              <nz-row
-                *ngIf="days[i].isExist"
-                [nzGutter]="[24, 30]"
-                nzAlign="middle"
-                nzJustify="center"
-                [dir]="language == 'en' ? 'ltr' : 'rtl'"
+
+              <div
+              
+              formArrayName="timeRange"
+                *ngFor="let t of timeRange?.controls; let ind = index"
+                style="gap: 30px; margin-top: 35px"
               >
-                <nz-col nzXs="24" nzMd="10">
-                  <div style="display: flex; flex-direction: column; gap: 10px">
-                    <span class="lable">{{ "start-time" | translate }}</span>
-                    <nz-time-picker
-                      [nzPlaceHolder]="'start-time' | translate"
-                      [(ngModel)]="item.startTime"
-                      (ngModelChange)="changeStartTimeRange($event,i, ind)"
-                      nzPopupClassName="time"
-                      [nzNowText]="'time-now' | translate"
-                      [nzOkText]="'save-time' | translate"
-                      nzFormat="HH:mm"
-                    ></nz-time-picker>
-                  </div>
-                </nz-col>
-                <nz-col nzXs="24" nzMd="1"><img
-                  src="assets/Images/--.svg"
-                  alt=""
-                /></nz-col>
-                <nz-col nzXs="24" nzMd="10">
-                  <div style="display: flex; flex-direction: column; gap: 10px">
-                    <span class="lable">{{ "end-time" | translate }}</span>
-                    <nz-time-picker
-                      [nzPlaceHolder]="'end-time' | translate"
-                      [(ngModel)]="item.endTime"
-                      (ngModelChange)="changeEndTimeRange($event,i, ind)"
-                      [nzPopupClassName]="'time'"
-                      [nzNowText]="'time-now' | translate"
-                      [nzOkText]="'save-time' | translate"
-                      nzFormat="HH:mm"
-                    ></nz-time-picker>
-                  </div>
-                </nz-col>
-                <nz-col nzXs="24" nzMd="3">
-                  <div
-                    style="
-                      border-radius: 100px;
-                      background: #f1f3f4;
-                      width: 36px;
-                      height: 36px;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                    "
-                  >
-                    <img
-                      src="assets/Images/minus.svg"
-                      alt=""
-                      style="cursor: pointer"
-                      (click)="removeTimeRange($event, item, i)"
-                    />
-                  </div>
-                </nz-col>
-              </nz-row>
-            </div>
+                <nz-row
+                [formGroupName]="ind"
+                  *ngIf="item.get('isExist')?.value"
+                  [nzGutter]="[24, 30]"
+                  nzAlign="middle"
+                  nzJustify="center"
+                  [dir]="language == 'en' ? 'ltr' : 'rtl'"
+                >
+                  <nz-col nzXs="24" nzMd="10">
+                    <div style="display: flex; flex-direction: column; gap: 10px">
+                      <span class="lable">{{ "start-time" | translate }}</span>
+                      <nz-time-picker
+                      ngDefaultControl
+                        [nzPlaceHolder]="'start-time' | translate"
+                        formControlName="startTime"
+                        (ngModelChange)="changeStartTimeRange($event,i, ind)"
+                        nzPopupClassName="time"
+                        [nzNowText]="'time-now' | translate"
+                        [nzOkText]="'save-time' | translate"
+                        nzFormat="HH:mm"
+                      ></nz-time-picker>
+                    </div>
+                  </nz-col>
+                  <nz-col nzXs="24" nzMd="1"><img
+                    src="assets/Images/--.svg"
+                    alt=""
+                  /></nz-col>
+                  <nz-col nzXs="24" nzMd="10">
+                    <div style="display: flex; flex-direction: column; gap: 10px">
+                      <span class="lable">{{ "end-time" | translate }}</span>
+                      <nz-time-picker
+                      ngDefaultControl
+                        [nzPlaceHolder]="'end-time' | translate"
+                        formControlName="endTime"
+                        (ngModelChange)="changeEndTimeRange($event,i, ind)"
+                        [nzPopupClassName]="'time'"
+                        [nzNowText]="'time-now' | translate"
+                        [nzOkText]="'save-time' | translate"
+                        nzFormat="HH:mm"
+                      ></nz-time-picker>
+                    </div>
+                  </nz-col>
+                  <nz-col nzXs="24" nzMd="3">
+                    <div
+                      style="
+                        border-radius: 100px;
+                        background: #f1f3f4;
+                        width: 36px;
+                        height: 36px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                      "
+                    >
+                      <img
+                        src="assets/Images/minus.svg"
+                        alt=""
+                        style="cursor: pointer"
+                        (click)="removeTimeRange($event, item, ind)"
+                      />
+                    </div>
+                  </nz-col>
+                </nz-row>
+              </div>
+
+
           </nz-col>
 
-          <nz-col *ngIf="days[i].isExist; else exist" nzXs="24" nzLg="2">
+          <nz-col *ngIf="item.get('isExist')?.value; else exist" nzXs="24" nzLg="2">
             <img
-               (click)="handleCopy($event, i)"
-              *ngIf="days[i].isCopy; else unCopy"
+               (click)="handleCopy($event,item)"
+               ngDefaultControl
+               formControlName="isCopy"
+              *ngIf="item.get('isCopy')?.value; else unCopy"
               src="assets/Images/copy.svg"
               alt=""
               style="cursor: pointer"
@@ -218,7 +233,9 @@
                 src="assets/Images/unCopy.svg"
                 alt=""
                 style="cursor: pointer"
-                (click)="handleCopy($event, i)"
+                ngDefaultControl
+                formControlName="isCopy"
+                (click)="handleCopy($event,item)"
               />
             </ng-template>
           </nz-col>

@@ -36,6 +36,7 @@ import { ResourceEffects } from './shared/store/resource-effects';
 import { NgIconsModule } from '@ng-icons/core';
 import { featherAirplay } from '@ng-icons/feather-icons';
 import { heroUsers } from '@ng-icons/heroicons/outline';
+import { environment } from 'src/environments/environment';
 registerLocaleData(en);
 
 // required for AOT compilation
@@ -71,11 +72,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NzIconModule,
     NzGridModule,
     NzDropDownModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly:environment.production }),
     StoreModule.forRoot({language:langReducer,profile:profileReducer,booking:bookingReducer,schedule:schedualeReducer,profileSuccess:profileSuccessReducer}, {}),
     SharedModule.forRoot(),
     EffectsModule.forRoot([ResourceEffects]),
-    NgIconsModule.withIcons({ featherAirplay, heroUsers })
+    NgIconsModule.withIcons({ featherAirplay, heroUsers }),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })
 
   ],
   providers: [HttpClient, { provide: NZ_I18N, useValue: en_US }],

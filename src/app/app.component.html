@@ -1,21 +1,21 @@
 <nz-layout>
   <nz-content>
-    <app-nav></app-nav>
+    <app-nav [resourcesData]="formdata"></app-nav>
     <div class="inner-content">
       <div class="resources-data" [dir]="language == 'en' ? 'ltr' : 'rtl'">
         <div nz-row [nzGutter]="[24, 24]" nzAlign="middle" nzJustify="center">
           <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12">
-            <app-profile></app-profile>
+            <app-profile [profileForm]="formdata.controls.profile" ></app-profile>
           </div>
           <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="12">
-            <app-booking></app-booking>
+            <app-booking [bookingForm]="formdata.controls.booking" ></app-booking>
           </div>
         </div>
       </div>
       <div class="resources-schedules">
         <div nz-row [nzGutter]="[24, 50]" nzAlign="middle" nzJustify="center">
           <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-            <app-schedules></app-schedules>
+            <app-schedules [scheduleForm]="formdata"></app-schedules>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-<div class="booking-wrapper" [dir]="language == 'en' ? 'ltr' : 'rtl'">
+<form  class="booking-wrapper" [dir]="language == 'en' ? 'ltr' : 'rtl'" [formGroup]="bookingForm">
   <div
     nz-row
     [nzGutter]="[24, 8]"
@@ -15,6 +15,7 @@
           [nzAddOnAfter]="language == 'en' ? '' : addOnBeforeTemplate"
         >
           <input
+           formControlName="avelabelityCount"
             type="number"
             [min]="1"
             nz-input
@@ -26,6 +27,7 @@
         </nz-input-group>
         <ng-template #addOnBeforeTemplate>
           <nz-select
+            formControlName="periodType"
             (ngModelChange)="changePeriodType($event)"
             [ngModel]="periodType"
           >
@@ -60,6 +62,7 @@
           [dir]="language == 'en' ? 'ltr' : 'rtl'"
         >
           <nz-radio-group
+            formControlName="resourceTime"
             [(ngModel)]="resourceTime"
             [dir]="language == 'en' ? 'ltr' : 'rtl'"
             (ngModelChange)="changeResourceTime($event)"
@@ -99,7 +102,7 @@
         <ng-icon name="heroPlusSolid" style="margin: 0px 0px;font-size: 18px;"></ng-icon>
         </button>
             <span style="font-size: 14px; font-weight: 500"
-              >{{ timeQuantity }} {{ "minute" | translate }}</span
+              >{{ bookingForm.value.timeQuantity }} {{ "minute" | translate }}</span
             >
             <button
             style="border-radius: 10px;background: #0771DE;padding: 4px 10px;"
@@ -135,6 +138,7 @@
           [nzMd]="manyBooking == 'حجز اكثر من شخص لنفس الموعد' ? 16 : 24"
         >
           <nz-radio-group
+            formControlName="manyBooking"
             [(ngModel)]="manyBooking"
             [dir]="language == 'en' ? 'ltr' : 'rtl'"
             (ngModelChange)="changeManyBooking($event)"
@@ -173,6 +177,7 @@
             >{{ "appointment" | translate }}</span
           >
           <input
+            formControlName="bookingCount"
             class="stores-quantity"
             *ngIf="manyBooking == 'حجز اكثر من شخص لنفس الموعد'"
             type="number"
@@ -186,4 +191,4 @@
       </nz-row>
     </div>
   </div>
-</div>
+</form>

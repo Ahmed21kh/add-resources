@@ -21,3 +21,14 @@ export interface Booking{
 export interface Schedules{
   schedualeData:any[]
 }
+export interface SchedulesData{
+  day:string,
+  isExist:boolean,
+  isCopy:boolean,
+  startTime:Date | unknown,
+  endTime:Date | unknown,
+  timeRange:object[]
+}export interface TimeRangeData{
+  startTime:Date | unknown,
+  endTime:Date | unknown,
+}

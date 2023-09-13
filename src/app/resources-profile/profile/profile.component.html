@@ -1,4 +1,4 @@
-<div class="profile-wrapper">
+<form class="profile-wrapper" [formGroup]="profileForm">
   <div nz-row [nzGutter]="[24, 30]" nzAlign="middle" nzJustify="center">
     <div nz-col nzXs="24">
       <div class="image-profile">
@@ -8,6 +8,7 @@
               <input
                 nz-input
                 type="file"
+
                 (change)="onFileSelected($event)"
                 #fileInput
                 style="display: none"
@@ -36,14 +37,17 @@
             <div class="name-input">
               <span class="lable">{{ "resource-name" | translate }}</span>
               <input
+              formControlName="resourceName"
                 [(ngModel)]="resourceName"
                 (ngModelChange)="changeResourceName($event)"
                 nz-input
                 [placeholder]="'resource-name' | translate"
                 nzSize="large"
+                [nzStatus]="(p['resourceName'].errors?.['required'] && p['resourceName'].touched)&&'error'"
                 style="font-size:16px;
                 font-weight:500;"
               />
+              <p style="color: red;position: absolute;bottom:-25px;" *ngIf="p['resourceName']?.errors?.['required'] && p['resourceName']?.touched" >{{language=="en"?'please enter resource name':'برجاء ادخال اسم المورد'}}</p>
             </div>
           </div>
         </div>
@@ -56,6 +60,8 @@
       >
         <span class="lable">{{ "choose-resources-type" | translate }}</span>
         <nz-radio-group
+
+          formControlName="resourceType"
           [(ngModel)]="resoureType"
           (ngModelChange)="changeResourceType($event)"
         >
@@ -69,4 +75,4 @@
       </div>
     </div>
   </div>
-</div>
+</form>

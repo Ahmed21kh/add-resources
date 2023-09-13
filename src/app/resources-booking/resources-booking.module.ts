@@ -6,7 +6,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { SharedModule } from '../shared-module/shared-module.module';
@@ -27,6 +27,7 @@ import { heroPlusSolid ,heroMinusSolid } from '@ng-icons/heroicons/solid';
     NzRadioModule,
     NzGridModule,
     FormsModule,
+    ReactiveFormsModule,
     NzInputNumberModule,
     NzSelectModule,
     SharedModule.forRoot(),
