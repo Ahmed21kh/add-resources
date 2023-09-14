@@ -193,12 +193,7 @@ export class NavComponent implements  OnInit{
             timer:1500
           }).then(() => {
           // window.location.reload();
-          let newTimeRange = this.resourcesData.get('schedualeData') as FormArray;
-      let index= newTimeRange.controls.findIndex((control) =>
-            // console.log(control.value);
-            control.value?.isExist== true && control.value?.timeRange?.length > 0
-          )
-          console.log(index);
+
 
           this.resourcesData.reset({
             profile:{
@@ -218,6 +213,20 @@ export class NavComponent implements  OnInit{
             schedualeData:this.days
 
           })
+
+          // console.log(index);
+
+
+
+          }).then(() =>{
+            let newTimeRange = this.resourcesData.get('schedualeData') as FormArray;
+            newTimeRange.controls.filter((control) =>
+               // console.log(control.value);
+               control.value?.isExist== true && control.value?.timeRange?.length > 0
+             ).map((control) =>{
+               (control.get('timeRange') as FormArray).clear();
+             })
+             window.location.reload()
           })
 
         } else if (result.isDenied) {

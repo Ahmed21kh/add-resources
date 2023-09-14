@@ -64,6 +64,8 @@ get p(){
       const reader = new FileReader();
 
       reader.onload = (e) => {
+        console.log(e.target?.result );
+
         this.imageUrl = e.target?.result || null;
         // this.dispatchProfileData ()
         this.profileForm.patchValue({
