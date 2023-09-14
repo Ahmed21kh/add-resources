@@ -14,6 +14,7 @@ import { ResourceEffects } from '../shared/store/resource-effects';
 import { NgIconsModule } from '@ng-icons/core';
 import { featherAirplay } from '@ng-icons/feather-icons';
 import { heroUsers } from '@ng-icons/heroicons/outline';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -24,6 +25,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [],
   imports: [
+    NzMessageModule,
     CommonModule,
     TranslateModule.forChild({
       loader: {

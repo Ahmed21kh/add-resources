@@ -8,7 +8,6 @@
               <input
                 nz-input
                 type="file"
-
                 (change)="onFileSelected($event)"
                 #fileInput
                 style="display: none"
@@ -18,7 +17,7 @@
               </button>
               <img
                 *ngIf="imageUrl"
-                [src]="imageUrl"
+                [src]="profileForm.get('imageUrl')?.value"
                 class="image-selected"
                 alt="Selected Image"
               />

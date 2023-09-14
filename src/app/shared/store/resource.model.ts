@@ -25,10 +25,11 @@ export interface SchedulesData{
   day:string,
   isExist:boolean,
   isCopy:boolean,
-  startTime:Date | unknown,
-  endTime:Date | unknown,
+  startTime:string | any,
+  endTime:string | any,
   timeRange:object[]
-}export interface TimeRangeData{
-  startTime:Date | unknown,
-  endTime:Date | unknown,
+}
+export interface TimeRangeData{
+  startTime:string |any,
+  endTime:string |any,
 }

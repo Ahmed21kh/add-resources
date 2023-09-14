@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
    formdata = new FormGroup({
     profile: new FormGroup({
-      imageUrl:new FormControl('',[Validators.required]),
+      imageUrl:new FormControl('assets/Images/user2.png',[Validators.required]),
       resourceName:new FormControl('',[Validators.required,Validators.min(4)]),
       resourceType:new FormControl('حجز خلال اليوم',[Validators.required]),
 
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     schedualeData:new FormArray([])
 
    })
-   
+
    get f() {
     return this.formdata.controls
   }

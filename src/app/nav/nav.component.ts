@@ -6,7 +6,8 @@ import { Booking, Language, Profile, Schedules, SchedulesData } from '../shared/
 import {TranslateService} from "@ngx-translate/core";
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -18,21 +19,85 @@ export class NavComponent implements  OnInit{
   bookingData!:any
   language:string = "en";
   scheduleData!:any
-  constructor(private store: Store<Language>,private appService:AppService,private translate: TranslateService) {
+  constructor(private store: Store<Language>,private appService:AppService,private translate: TranslateService,private message: NzMessageService) {
 
   }
-
+  days:SchedulesData[] = [
+    {
+    isExist:false,
+    isCopy:false ,
+    day:"Sat",
+    startTime:null,
+    endTime:null,
+    timeRange:[]
+  },
+  {
+    isExist:true,
+    isCopy:false ,
+    day:"Sun",
+    startTime:null,
+    endTime:null,
+    timeRange:[]
+  },
+  {
+    isExist:true,
+    isCopy:false ,
+    day:"Mon",
+    startTime:null,
+    endTime:null,
+    timeRange:[]
+  },
+  {
+    isExist:true,
+    isCopy:false ,
+    day:"Tue",
+    startTime:null,
+    endTime:null,
+    timeRange:[]
+  },
+  {
+    isExist:true,
+    day:"Wed",
+    isCopy:false ,
+    startTime:null,
+    endTime:null,
+    timeRange:[]
+  },
+  {
+    isExist:true,
+    isCopy:false ,
+    day:"Thu",
+    startTime:null,
+    endTime:null,
+    timeRange:[]
+  },
+  {
+    isExist:false,
+    isCopy:false ,
+    day:"Fri",
+    startTime:null,
+    endTime:null,
+    timeRange:[]
+  },
+]
   @Input() resourcesData!:FormGroup
 
   ngOnInit(): void {
 
   }
 
+
   formData = new FormGroup({
     profile:new FormControl('',Validators.required),
     booking:new FormControl('',Validators.required),
     schedualeData: new FormControl('',Validators.required)
   })
+
+  get resetTimeRangeData() {
+    let newTimeRange = this.resourcesData.get('schedualeData') as FormArray;
+    newTimeRange.push(this.days)
+    return newTimeRange
+  }
 
   saveChanges(){
   console.log(this.resourcesData?.value);
@@ -127,7 +192,32 @@ export class NavComponent implements  OnInit{
             showConfirmButton:false,
             timer:1500
           }).then(() => {
-          window.location.reload();
+          // window.location.reload();
+          let newTimeRange = this.resourcesData.get('schedualeData') as FormArray;
+      let index= newTimeRange.controls.findIndex((control) =>
+            // console.log(control.value);
+            control.value?.isExist== true && control.value?.timeRange?.length > 0
+          )
+          console.log(index);
+
+          this.resourcesData.reset({
+            profile:{
+              imageUrl:'assets/Images/user2.png',
+              resourceName:'',
+              resourceType:'حجز خلال اليوم',
+
+            },
+            booking:{
+              avelabelityCount:1,
+              periodType:'شهر',
+              resourceTime:'وقت الخدمة',
+              manyBooking:'حجز واحد فقط',
+              timeQuantity:0,
+              bookingCount:1,
+            },
+            schedualeData:this.days
+
+          })
           })
 
         } else if (result.isDenied) {
@@ -137,7 +227,7 @@ export class NavComponent implements  OnInit{
 
   }else {
     console.log("please complete your changes");
-
+     this.message.warning(this.language == "en"?"please enter the required fields":"برجاء ادخال الحقول المطلوبة")
   }
 
   //   alert(

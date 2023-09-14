@@ -20,6 +20,7 @@ export class SchedulesComponent implements OnInit {
   copy:boolean = false
   endTime:string  = "";
   arrayForm!:FormArray
+  formDetails!:FormGroup
   days:SchedulesData[] = [
     {
     isExist:false,
@@ -84,26 +85,31 @@ export class SchedulesComponent implements OnInit {
   constructor(private fb:FormBuilder ,private store:Store<Language>,private appService:AppService) {
 
   }
-  public schedualForm = this.fb.group({
-    scheduleData:this.fb.array([
-      this.fb.group({
-        day:new FormControl(''),
-        timeRange:this.fb.array([
-          this.fb.group({
-            startTime:new FormControl(''),
-            endTime:new FormControl('')
-          })
-        ])
-      })
-    ])
-  })
+  // public schedualForm = this.fb.group({
+  //   scheduleData:this.fb.array([
+  //     this.fb.group({
+  //       day:new FormControl(''),
+  //       timeRange:this.fb.array([
+  //         this.fb.group({
+  //           startTime:new FormControl(''),
+  //           endTime:new FormControl('')
+  //         })
+  //       ])
+  //     })
+  //   ])
+  // })
 
   @Input() scheduleForm!:FormGroup ;
-
+  get s(){
+    return  this.scheduleForm.controls
+  }
+get getData():FormArray{
+  return this.scheduleForm.get('schedualeData') as FormArray
+}
   ngOnInit(): void {
     this.arrayForm = this.scheduleForm.get('schedualeData') as FormArray
-    this.days.map((data:any) =>{
-      let obj = new FormGroup({
+    this.days.map((data:SchedulesData) =>{
+     let obj = new FormGroup({
         day:new FormControl(data.day),
         isExist: new FormControl(data.isExist),
         isCopy: new FormControl(data.isCopy),
@@ -117,29 +123,29 @@ export class SchedulesComponent implements OnInit {
    this.store.select(getLang).subscribe(lang =>{
     this.language = lang;
    })
-    let arr= this.schedualForm.get("scheduleData")as FormArray
-    console.log(arr);
+
     // arr.push(this.days)
 
   }
-get s(){
-    return  this.schedualForm.controls
+  timeRangeData(form:any){
+    return form.controls.timeRange.controls
   }
-get getData():FormArray{
-  return this.scheduleForm.get('schedualeData') as FormArray
-}
+
+  // get timeRange (): FormArray {
+  //   return this.formDetails.get('timeRange') as FormArray
+  // }
 // get getTimeRange():FormArray{
 //   console.log(this.arrayForm.get('timeRange'));
 
 //   return this.arrayForm.get('timeRange') as FormArray
 // }
 
-  public timeForm = new FormGroup({
-    day: new FormControl(''),
-    startTime: new FormControl(''),
-    endTime: new FormControl(''),
-    timeRange:new FormArray([])
-  })
+  // public timeForm = new FormGroup({
+  //   day: new FormControl(''),
+  //   startTime: new FormControl(''),
+  //   endTime: new FormControl(''),
+  //   timeRange:new FormArray([])
+  // })
   // public schedualForm =  this.fb.group({
   //   day:[''],
   //   timeRange:this.fb.array([])
@@ -155,39 +161,28 @@ get getData():FormArray{
     }
 
   }
-   addNewTimeRange(e:any,item:AbstractControl){
+   addNewTimeRange(e:any,i:number){
+    //  console.log("indexOfDay",item.errors);
+     let item = (this.scheduleForm.get('schedualeData') as FormArray).controls[i]
+     console.log(item);
+      let timeRange = item.get('timeRange') as FormArray
 
-    console.log("indexOfDay",item.errors);
-    this.timeRange = item.get('timeRange') as FormArray
+
+    // this.timeRange = item.get('timeRange') as FormArray
     console.log(this.timeRange);
     let obj = new FormGroup({
       startTime:new FormControl(item.get('startTime')?.value),
       endTime:new FormControl(item.get('endTime')?.value)
     })
-    this.timeRange.push(obj)
-    // this.days[i].timeRange.unshift(obj);
-    let Arr = this.days.filter((d:any) => d.isExist && d.timeRange.length >0).map((data:any) =>{return {
-      day:data.day,
-      timeRange:data.timeRange
-    }})
-    console.log(Arr);
-    // this.dispatchScheduleData(Arr)
-    // this.days[i].startTime = ''
-    // this.days[i].endTime = ''
-
-
-
+    timeRange?.push(obj)
    }
-   removeTimeRange(e:any,item:AbstractControl,index:number){
-    // console.log("indexOfTimeRange",i);
-    this.timeRange.removeAt(index);
-    //  this.days[index].timeRange.splice(i, 1)
 
-     let Arr = this.days.filter((d:any) => d.isExist && d.timeRange.length >0).map((data:any) =>{return {
-      day:data.day,
-      timeRange:data.timeRange
-    }})
-    console.log(Arr);
+   removeTimeRange(e:any,i:number,index:number){
+    // console.log("indexOfTimeRange",i);
+    let item = (this.scheduleForm.get('schedualeData') as FormArray).controls[i]
+    console.log(item);
+     let timeRange = item.get('timeRange') as FormArray
+     timeRange.removeAt(index);
     // this.dispatchScheduleData(Arr)
 
    }
